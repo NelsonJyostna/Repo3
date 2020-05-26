@@ -28,6 +28,10 @@ function getWorkHrs() {
     echo $empHrs
 }
 
+function getEmpWage() {
+        local empHr=$1
+        echo $(($empHr*$EMP_RATE_PER_HR))
+}
 
 while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH &&
     $totalWorkingDays -lt $NUM_WORKING_DAYS ]]
@@ -36,6 +40,8 @@ do
    empCheck=$((RANDOM%3))
    empHrs="$( getWorkHrs $empCheck )"
    totalEmpHrs=$(($totalEmpHrs+$empHrs))
+   dailWage[$totalWorkingDays]="$( getEmpWage $empHrs )"
 done
 
 totalSalery=$(($totalEmpHrs*$EMP_RATE_PER_HR))
+echo ${dailWage[@]}
