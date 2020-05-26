@@ -1,21 +1,20 @@
 #!/bin/bash -x
 
-
-
-
 isPartTime=1
 isFullTime=2
 empRatePerHr=20
-randomcheck=$((RANDOM%3))
+empCheck=$((RANDOM%3))
 
-if [ $isFullTime -eq $randomcheck ]
-then
-     empHrs=8
-elif [ $isPartTime -eq $randomcheck ]
-then
-     empHrs=8
-else
-     empHrs=0
-fi
+case $empCheck in
+     $isFullTime)
+              empHrs=8
+                ;;
+      $isPartTime)
+              empHrs=4
+               ;;
+       *)
+              empHrs=0
+              ;;
+esac
 
 salery=$(($empHrs*$empRatePerHr))
